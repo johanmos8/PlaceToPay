@@ -14,8 +14,16 @@ class AddProductIdToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('product_id')->after('customer_mobile');
-            $table->string('user_id')->after('product_id');
+            $table->unsignedBigInteger('product_id')->after('customer_mobile')->nullable();
+            $table->unsignedBigInteger('user_id')->after('product_id')->nullable();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
+            $table->foreign('product_id')
+                ->references('id')
+                ->on('products')
+                ->onDelete('set null');;
         });
     }
 
@@ -32,4 +40,3 @@ class AddProductIdToOrdersTable extends Migration
         });
     }
 }
-
