@@ -64,12 +64,6 @@ background: #DFC2F2;
 }
 
 
-@keyframes chan-sh {
-	from  {content: 'free shipping';}
-	to  {content: 'New';}
-	
-}
-
 /*Product Rating  */
 .hint-star {
 	display: inline-block;

@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/customer/create/{product}', [CustomerController::class, 'createOrder'])->name('customer.create');
-//Route::post('/customer', [CustomerController::class, 'saveOrder'])->name('customer.save');
+Route::post('/customer/orderSummary/', [CustomerController::class, 'viewOrderSummary'])->name('customer.viewOrderSummary');
+Route::post('/customer/save', [CustomerController::class, 'saveOrder'])->name('customer.save');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
