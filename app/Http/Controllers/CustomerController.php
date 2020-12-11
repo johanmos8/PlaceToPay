@@ -17,9 +17,9 @@ class CustomerController extends Controller
      * Show a view to create new order
      * @return Illuminate\View
      */
-    public function createOrder()
+    public function createOrder($product)
     {
-        return view("customer.create");
+        return view("customer.createOrder");
     }
     /**
      * Invoke service to validate data and save on DB a new order

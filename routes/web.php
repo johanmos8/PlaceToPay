@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home.home');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/customer/create/{product}', [CustomerController::class, 'createOrder'])->name('customer.create');
+//Route::post('/customer', [CustomerController::class, 'saveOrder'])->name('customer.save');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
