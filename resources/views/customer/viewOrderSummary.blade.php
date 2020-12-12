@@ -3,7 +3,12 @@
 @section('title', 'Home')
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/home/index.css') }}" />
+    @if (session('status'))
+        <div class="alert alert-success">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{ session('status') }}
+        </div>
+    @endif
+    <link rel="stylesheet" href="{{ asset('css/home/index.css') }}" />
     <div id="container">
         <!-- Start	Product details -->
         <div class="product-details">

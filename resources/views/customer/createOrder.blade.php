@@ -15,7 +15,7 @@
         </div>
         <div>
             <label>Customer mobile</label>
-            <input type="text" name="customer_mobile">
+            <input type="tel" name="customer_mobile">            
             <input type="hidden" name="product_id" value="{{ $product->id }}">
             {{-- <input type="hidden" name="user_id" value="{{ $user->id }}"> --}}
         </div>
