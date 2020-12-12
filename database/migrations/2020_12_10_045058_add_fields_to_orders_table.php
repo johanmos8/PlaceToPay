@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddProductIdToOrdersTable extends Migration
+class AddFieldsToOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,7 +23,9 @@ class AddProductIdToOrdersTable extends Migration
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products')
-                ->onDelete('set null');;
+                ->onDelete('set null');
+            $table->unsignedBigInteger('request_id')->after('user_id')->nullable();
+            $table->string('process_url',255)->after('request_id')->nullable();
         });
     }
 
@@ -37,6 +39,8 @@ class AddProductIdToOrdersTable extends Migration
         Schema::table('orders', function (Blueprint $table) {
             $table->dropColumn('product_id');
             $table->dropColumn('user_id');
+            $table->dropColumn('request_id');
+            $table->dropColumn('process_url');
         });
     }
 }
