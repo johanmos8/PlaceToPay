@@ -37,6 +37,8 @@ class AddFieldsToOrdersTable extends Migration
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
+            $table->dropForeign('orders_product_id_foreign');
+            $table->dropForeign('orders_user_id_foreign');
             $table->dropColumn('product_id');
             $table->dropColumn('user_id');
             $table->dropColumn('request_id');
