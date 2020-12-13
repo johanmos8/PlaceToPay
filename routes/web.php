@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/', [HomeController::class, 'index'])->middleware(['auth'])->name('home.index');
 Route::get('/customer/reviewOrder/{order}', [CustomerController::class, 'reviewOrderStatus'])->middleware(['auth'])->name('customer.reviewOrder');
 Route::get('/customer/create/{product}', [CustomerController::class, 'createOrder'])->middleware(['auth'])->name('customer.create');
+Route::get('/customer/viewMyOrders', [CustomerController::class, 'viewMyOrders'])->middleware(['auth'])->name('customer.viewMyOrders');
 
 Route::post('/customer/orderSummary/', [CustomerController::class, 'viewOrderSummary'])->middleware(['auth'])->name('customer.viewOrderSummary');
 Route::post('/customer/save', [CustomerController::class, 'saveOrder'])->middleware(['auth'])->name('customer.save');
