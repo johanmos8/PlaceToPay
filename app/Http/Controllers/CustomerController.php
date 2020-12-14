@@ -6,6 +6,7 @@ use App\Services\OrderService;
 use App\Services\PlaceToPayService;
 use App\Services\ProductService;
 use Dnetix\Redirection\PlacetoPay;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Auth;
@@ -35,18 +36,22 @@ class CustomerController extends Controller
     {
         $this->order = $this->orderService->saveOrderData($request->all(), $request->User()->id);
         $product = $productService->getProductById($request->product_id);
-        $response = $placeToPayService->createRequest($this->order, $product);
-        redirect()->to($response->processUrl())->send();
+        try {
+            $response = $placeToPayService->createRequest($this->order, $product);
+            return redirect()->to($response->processUrl())->send();
+        } catch (Exception $e) {
+            report($e);
+            return redirect()->route('customer.viewMyOrders')->with('status', $e->getMessage());
+        }
     }
     /**
      * Show a view with user's orders
      */
     public function viewMyOrders()
     {
-        $user=Auth::user();
-        $ordersList=$user->orders()->get();
+        $user = Auth::user();
+        $ordersList = $user->orders()->get();
         return view("customer.viewMyOrders", compact('ordersList'));
-
     }
     /**
      * Show a view with information of Order to be payed
@@ -62,8 +67,15 @@ class CustomerController extends Controller
      */
     public function reviewOrderStatus($id_order, PlaceToPayService $placeToPayService)
     {
-        $order = $this->orderService->getOrderById($id_order);
-        $order = $placeToPayService->getRequestInformation($order);
-        return view("customer.reviewOrderStatus", compact('order'));
+        $objOrder = $this->orderService->getOrderById($id_order);
+        try {
+            $result = $placeToPayService->getRequestInformation($objOrder);
+            $paymentStatus = $result['paymentStatus'];
+            $order = $result['order'];
+            return view("customer.reviewOrderStatus", compact('order', 'paymentStatus'));
+        } catch (Exception $e) {
+            report($e);
+            return redirect()->route('customer.viewMyOrders')->with('status', $e->getMessage());
+        }
     }
 }

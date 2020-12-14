@@ -31,23 +31,21 @@
                         <div class="px-4 py-5 bg-white sm:p-6">
                             <div class="grid grid-cols-6 gap-6">
                                 <div class="col-span-6 sm:col-span-3">
-                                    <label for="customer_name" class="block text-sm font-medium text-gray-700">Name</label>
-                                    <input type="text" name="customer_name" id="customer_name" autocomplete="given-name"
+                                    <label for="customer_name" class="block text-sm font-medium text-gray-700">@lang('frontend.name')&nbsp;*</label>
+                                    <input type="text" name="customer_name" id="customer_name" autocomplete="given-name" required
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-4">
-                                    <label for="customer_email" class="block text-sm font-medium text-gray-700">Email
-                                        address</label>
-                                    <input type="text" name="customer_email" id="customer_email" autocomplete="email"
+                                    <label for="customer_email" class="block text-sm font-medium text-gray-700">@lang('frontend.email')&nbsp;*</label>
+                                    <input type="email" required  name="customer_email" id="customer_email" autocomplete="email"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
 
                                 <div class="col-span-6">
-                                    <label for="customer_mobile" class="block text-sm font-medium text-gray-700">Phone
-                                        number</label>
-                                    <input type="text" name="customer_mobile" id="customer_mobile"
+                                    <label for="customer_mobile" class="block text-sm font-medium text-gray-700">@lang('frontend.phone_number')&nbsp;*</label>
+                                    <input type="number" min="0" maxlength="10" name="customer_mobile" id="customer_mobile" required
                                         autocomplete="street-address"
                                         class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>

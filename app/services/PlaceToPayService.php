@@ -8,6 +8,7 @@ use Dnetix\Redirection\Exceptions\PlacetoPayException;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 use PhpParser\Node\Expr\Throw_;
 use PhpParser\Node\Stmt\Switch_;
 use Throwable;
@@ -64,14 +65,15 @@ class PlaceToPayService
             //'userAgent' => $request->user_agent,
             'userAgent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
         ];
-
         $response = $this->placetopay->request($requestptp);
         if ($response->isSuccessful()) {
             $order = $this->orderRepository->updatePaymentData($order, $response);
             return $response;
         } else {
+            
             Log::info($response->status()->message());
-            return redirect()->route('customer.', $order)->with('status', $response->status()->message());
+            throw new Exception('Something Went Wrong. Please try again or contact our support area'); 
+            //return redirect()->route('customer.reviewOrder', $order)->with('status', $response->status()->message());
         }
     }
     /**
@@ -105,10 +107,11 @@ class PlaceToPayService
             }
             $this->orderRepository->update($order);
 
-            return $order;
+            return array('order'=>$order,'paymentStatus'=>$response->status()->status());
         } else {
             // There was some error with the connection so check the message
-            dd($response->status()->message());
+            Log::info($response->status()->message());
+            throw new Exception('Something Went Wrong. Please try again or contact our support area'); 
         }
     }
 }

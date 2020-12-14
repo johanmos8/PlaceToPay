@@ -43,6 +43,13 @@
                     </dd>
                     </dd>
                 </div>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                        @lang('frontend.paymentStatus') </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        {{ $paymentStatus }}
+                    </dd>
+                </div>
                 @if ($order->status == 'PAYED')
                     <div class="bg-green-300 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">
@@ -74,7 +81,7 @@
                         </dd>
                     </div>
                 @endif
-
+             
             </dl>
         </div>
         @if ($order->status == 'CREATED' && $order->process_url)

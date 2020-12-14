@@ -13,13 +13,14 @@ return [
     'name' => 'Name',
     'email' => 'Email Address',
     'phone_number' => 'Phone number',
-    'status' => 'Status',
+    'status' => 'Order status',
     'product' => 'Product',
     'viewDetail' => 'View detail',
     'action'=>'Action',
     'orderInformation'=>'Order information',
     'retryPayment'=>'Retry payment',
     'goToPay'=>'Go to pay',
-    'tryAgain'=>'Try again!'
+    'tryAgain'=>'Try again!',
+    'paymentStatus'=>'Payment status'
 
 ];
