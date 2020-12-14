@@ -56,6 +56,19 @@ you have to run the migrations and seeders for this project using the next comma
 $ php artisan migrate --seed
 ```
 Note: there are seeders for products and users
+
+### PlaceToPay connection
+
+This project already has configured the credentials used to connect to PlaceToPay, but if for some reasons is required to change it, please write the correct ones in the env file (.env)
+
+
+For instance:
+
+PLACETOPAY_LOGIN="6dd490faf9cb87a9862245da41170ff2"
+PLACETOPLAY_TRANKEY="024h1IlD"
+PLACETOPAY_ENDPOINT=https://test.placetopay.com/redirection/
+
+
 ### Running
 
 Run your web server and open the url in your favorite browser
@@ -67,7 +80,16 @@ For use this application we need to have an user created, there is a user for de
 <b>password:</b> 12345678
 
 if you want you can create a new one, please enter to [YourUrl]/register
+### Steps to get a product
 
+<ol>
+<li>Choose a product and click in "Buy now" button</li>
+<li>Enter the required data in the form and click in the button</li>
+<li>Confirm your order</li>
+<li>The system redirect you to url where you can pay using different options</li>
+<li>Once you paid, return to the application to check your order status</li>
+<li>If you want you can check all your orders and look its statuses in the [YourUrl]/customer/viewMyOrders or in menu at the top right below the username</li>
+</ol>
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
