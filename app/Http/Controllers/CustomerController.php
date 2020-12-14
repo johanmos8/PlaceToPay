@@ -63,7 +63,7 @@ class CustomerController extends Controller
         return view("customer.viewOrderSummary", compact('product'), compact('request'));
     }
     /**
-     * 
+     * Show a view with the order information, also consult the status to placetopay for a order specific
      */
     public function reviewOrderStatus($id_order, PlaceToPayService $placeToPayService)
     {
