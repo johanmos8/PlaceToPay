@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CustomerController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,10 +15,16 @@ use App\Http\Controllers\CourseController;
 |
 */
 
-Route::get('/', HomeController::class);
+Route::get('/', [HomeController::class, 'index'])->middleware(['auth'])->name('home.index');
+Route::get('/customer/reviewOrder/{order}', [CustomerController::class, 'reviewOrderStatus'])->middleware(['auth'])->name('customer.reviewOrder');
+Route::get('/customer/create/{product}', [CustomerController::class, 'createOrder'])->middleware(['auth'])->name('customer.create');
+Route::get('/customer/viewMyOrders', [CustomerController::class, 'viewMyOrders'])->middleware(['auth'])->name('customer.viewMyOrders');
 
-Route::get('cursos/',[CourseController::class, 'index']);
+Route::post('/customer/orderSummary/', [CustomerController::class, 'viewOrderSummary'])->middleware(['auth'])->name('customer.viewOrderSummary');
+Route::post('/customer/save', [CustomerController::class, 'saveOrder'])->middleware(['auth'])->name('customer.save');
 
-Route::get('cursos/create',[CourseController::class, 'create']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::get('cursos/{curso}',[CourseController::class, 'show']);
+require __DIR__ . '/auth.php';

@@ -1,61 +1,96 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Project to order and pay products
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Development in php with laravel 8, which involves making an invoice payment through the redirection service with PlacetoPay [webcheckout](https://placetopay.github.io/web-checkout-api-docs/#webcheckout) , controlling the invoice payment statuses and show to users theirs orders and the status for each of them.
+In this project was used Tailwind.css as framework to render a better designed in each view
 
-## About Laravel
+## Installation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+You must keep in mind that since this program is built with php, you must have a **WEB SERVER** configured at your pc.
+Its neccesary to have extension soap configured in your php.ini because it's required to enable communication with PlaceToPay
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Clone the repository using the next command
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    git clone https://github.com/johanmos8/PlaceToPay.git -b master 
 
-## Learning Laravel
+### Installing dependencies with Composer 
+Install the dependencies with composer. you must have [Composer](https://getcomposer.org/) installed on your machine.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+The composer dependences download can be done using this command in the console, inside the root folder of your project:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+$ composer install
+```
 
-## Laravel Sponsors
+This will install all the necessary dependencies for the project defined in the <composer.json file during development.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Environment file
 
-### Premium Partners
+Due to git excludes .env  file for security reasons there is a example file to get all the configurations for this project. Use the next command to config the file versioned as your environment file
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+```bash
+$ cp .env.example .env
+```
+In this file exists the configuration file for our project. Also if you need you can fill the data for the redirection with [PlacetoPay](https://placetopay.github.io/web-checkout-api-docs/#que-datos-debo-tener-antes-de-iniciar-la-instalacion) and the db information that you are going to use.
+### Database connection
 
-## Contributing
+Please open .env file and write your credentials for your database connection
+For example: 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=store
+DB_USERNAME=root
+DB_PASSWORD=
 
-## Code of Conduct
+if you use a database engine different to myqsl, please sure to change
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+  'default' => env('DB_CONNECTION', 'mysql')
+ in the file config/database.php
 
-## Security Vulnerabilities
+### Database migrations
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+you have to run the migrations and seeders for this project using the next command:
 
+```bash
+$ php artisan migrate --seed
+```
+Note: there are seeders for products and users
+
+### PlaceToPay connection
+
+This project already has configured the credentials used to connect to PlaceToPay, but if for some reasons is required to change it, please write the correct ones in the env file (.env)
+
+
+For instance:
+
+PLACETOPAY_LOGIN="6dd490faf9cb87a9862245da41170ff2"
+PLACETOPLAY_TRANKEY="024h1IlD"
+PLACETOPAY_ENDPOINT=https://test.placetopay.com/redirection/
+
+
+### Running
+
+Run your web server and open the url in your favorite browser
+## Usage
+
+For use this application we need to have an user created, there is a user for default in the database that can be used:
+
+<b>email</b>: test@evertec.com
+<b>password:</b> 12345678
+
+if you want you can create a new one, please enter to [YourUrl]/register
+### Steps to get a product
+
+<ol>
+<li>Choose a product and click in "Buy now" button</li>
+<li>Enter the required data in the form and click in the button</li>
+<li>Confirm your order</li>
+<li>The system redirect you to url where you can pay using different options</li>
+<li>Once you paid, return to the application to check your order status</li>
+<li>If you want you can check all your orders and look its statuses in the [YourUrl]/customer/viewMyOrders or in menu at the top right below the username</li>
+</ol>
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+

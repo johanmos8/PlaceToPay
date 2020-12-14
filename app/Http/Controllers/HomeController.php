@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Facade\FlareClient\View;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
-    public function __invoke(){
 
-        return View("home");
-
+    /**
+     * 
+     * show a view with list of products that can be bought
+     */
+    public function index()
+    {
+        $products = Product::all();
+        return view("home.index", compact('products'));
     }
+
 }
